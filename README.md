@@ -1,23 +1,73 @@
-@'
 # Techdome QA Automation Assignment
 
 ## Overview
 
 This project contains an automated QA test suite for the Techdome website using Playwright with TypeScript.
 
-The framework covers end-to-end UI testing, integration testing, security checks, mobile responsiveness, and load testing.
+The framework covers:
 
-Application under test:
+* End-to-end (E2E) testing
+* Integration testing
+* Security testing
+* Mobile responsiveness testing
+* Load/performance testing
 
-https://techdome.io/
+**Application under test:** https://techdome.io/
 
 ## Technology Stack
 
-- Playwright
-- TypeScript
-- Node.js
-- GitHub Actions
-- Playwright HTML Report
+* Playwright
+* TypeScript
+* Node.js
+* GitHub Actions
+* Playwright HTML Report
+
+## Test Coverage
+
+The current Chromium suite contains **15 automated tests**.
+
+### E2E Testing
+
+The E2E suite covers:
+
+* Homepage navigation
+* Company navigation
+* Insights / Blog navigation
+* Case Studies search
+* Contact and scheduling workflow
+* Mobile responsiveness
+
+### Integration Testing
+
+Integration coverage includes:
+
+* Scheduling integration loading
+* Network request validation
+* Scheduler attendee form interaction
+
+### Security Testing
+
+Security coverage includes:
+
+* Script injection handling
+* HTTP security headers
+* Cookie security validation
+
+### Load Testing
+
+The load test uses **exactly 5 concurrent users**, as required by the assessment.
+
+It tests:
+
+* Homepage
+* Contact page
+* HTTP response status
+* Response-time threshold
+* p95 response time
+
+Detailed results are documented in:
+
+`docs/load-test-results.md`
 
 ## Project Structure
 
@@ -41,11 +91,103 @@ tests/
 │
 └── security/
     ├── script-injection.spec.ts
-    └── security-headers.spec.ts
+    ├── security-headers.spec.ts
+    └── security-cookie.spec.ts
 
 docs/
-└── load-test-results.md
+├── bugs.md
+├── claude-code-log.md
+├── load-test-results.md
+└── user-story-map.md
 
 .github/
 └── workflows/
     └── playwright.yml
+```
+
+## How to Run the Tests
+
+### Install dependencies
+
+```bash
+npm ci
+```
+
+### Run the complete test suite
+
+```bash
+npx playwright test
+```
+
+### Run Chromium tests only
+
+```bash
+npx playwright test --project=chromium
+```
+
+### Run security tests
+
+```bash
+npx playwright test tests/security
+```
+
+### View the HTML report
+
+After a test run, Playwright generates the HTML report.
+
+```bash
+npx playwright show-report
+```
+
+## CI/CD
+
+GitHub Actions runs the Playwright test suite automatically when changes are pushed to the `main` branch or when a pull request targets `main`.
+
+The workflow:
+
+1. Checks out the repository.
+2. Sets up Node.js.
+3. Installs project dependencies.
+4. Installs Playwright browsers.
+5. Runs the Chromium Playwright test suite.
+6. Uploads the Playwright report when available.
+
+## Defects Found
+
+A responsive UI defect involving horizontal overflow on mobile viewport sizes was identified and documented.
+
+Details are available in:
+
+`docs/bugs.md`
+
+## Test Documentation
+
+### User Story Map
+
+`docs/user-story-map.md`
+
+Contains the user stories, acceptance criteria, test types, and automation traceability.
+
+### AI / Claude Code Usage Log
+
+`docs/claude-code-log.md`
+
+Contains five AI-assisted development interactions and the human judgment applied to each.
+
+### Load Test Results
+
+`docs/load-test-results.md`
+
+Contains the load-test configuration, response-time measurements, error counts, acceptance criteria, and result.
+
+## Current Validation
+
+The current test suite has been validated locally and through GitHub Actions.
+
+**Chromium result: 15 passed**
+
+The repository is configured so that the main test suite can be executed with:
+
+```bash
+npx playwright test
+```
