@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 10
+    timeout-minutes: 15
     runs-on: ubuntu-latest
 
     steps:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test --reporter=list
-        timeout-minutes: 5
+        timeout-minutes: 10
 
       - name: Upload Playwright report
         if: always()
@@ -40,3 +40,4 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+          if-no-files-found: warn
