@@ -1,11 +1,12 @@
-@'
 name: Playwright Tests
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
   pull_request:
-    branches: [ main, master ]
+    branches:
+      - main
 
 jobs:
   test:
@@ -38,4 +39,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
-'@ | Set-Content .github\workflows\playwright.yml
