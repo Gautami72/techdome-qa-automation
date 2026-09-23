@@ -30,8 +30,8 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test --project=chromium
-        timeout-minutes: 10
+        run: npx playwright test --project=chromium --workers=1
+        timeout-minutes: 10 
 
       - name: Upload Playwright report
         if: always()
